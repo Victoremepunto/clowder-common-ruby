@@ -1,0 +1,19 @@
+---
+name: Run Unit Tests
+
+'on':
+  - pull_request
+  - push
+
+jobs:
+
+  testing:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v1
+      - name: Install package and dependencies
+        run: |
+          sudo apt-get install ruby-full
+      - name: Run Tests
+        run: export ACG_CONFIG="./test.json"; ruby lib/app-common-ruby/config.rb

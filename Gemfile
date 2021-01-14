@@ -1,3 +1,8 @@
 source 'https://rubygems.org'
 
-gemspec
+gem 'climate_control'
+
+group :development, :test do
+  gem 'byebug'
+  gem 'rspec-rails'
+end
