@@ -1,5 +1,6 @@
 require "ostruct"
 require "json"
+require "stringio"
 
 class RubyClassConverter
   attr_reader :config
