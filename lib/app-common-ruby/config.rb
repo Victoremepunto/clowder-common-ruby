@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'json'
 require_relative 'types'
 
 arg_config = ENV.fetch('ACG_CONFIG')
