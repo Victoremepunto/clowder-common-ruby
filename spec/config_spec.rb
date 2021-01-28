@@ -36,6 +36,18 @@ describe AppCommonRuby do
     expect(DependencyEndpoints["app2"]["endpoint2"].port).to eq(8000)
   end
 
+
+  it "should have PrivateDependencyEndpoints" do
+    expect(PrivateDependencyEndpoints.count).to eq(2)
+    expect(PrivateDependencyEndpoints["app1"]["endpoint1"].class).to eq(PrivateDependencyEndpoint)
+    expect(PrivateDependencyEndpoints["app2"]["endpoint2"].class).to eq(PrivateDependencyEndpoint)
+
+    expect(PrivateDependencyEndpoints["app1"]["endpoint1"].hostname).to eq("endpoint1.svc")
+    expect(PrivateDependencyEndpoints["app1"]["endpoint1"].port).to eq(10000)
+    expect(PrivateDependencyEndpoints["app2"]["endpoint2"].hostname).to eq("endpoint2.svc")
+    expect(PrivateDependencyEndpoints["app2"]["endpoint2"].port).to eq(10000)
+  end
+
   it "should have KafkaServers" do
     expect(KafkaServers.count).to eq(1)
     expect(KafkaServers.first).to eq("{broker-host}:{27015}")

@@ -7,7 +7,9 @@ class AppConfig < OpenStruct
   attr_accessor :database
   attr_accessor :objectStore
   attr_accessor :inMemoryDb
+  attr_accessor :featureFlags
   attr_accessor :endpoints
+  attr_accessor :privateEndpoints
 
   def initialize(attributes)
     super
@@ -23,14 +25,21 @@ class AppConfig < OpenStruct
     @database = DatabaseConfig.new(attributes.fetch(:database, {}))
     @objectStore = ObjectStoreConfig.new(attributes.fetch(:objectStore, {}))
     @inMemoryDb = InMemoryDBConfig.new(attributes.fetch(:inMemoryDb, {}))
+    @featureFlags = FeatureFlagsConfig.new(attributes.fetch(:featureFlags, {}))
     @endpoints = []
     attributes.fetch(:endpoints, []).each do |attr|
       @endpoints << DependencyEndpoint.new(attr)
+    end
+    @privateEndpoints = []
+    attributes.fetch(:privateEndpoints, []).each do |attr|
+      @privateEndpoints << PrivateDependencyEndpoint.new(attr)
     end
   end
 
   def valid_keys
     [].tap do |keys|
+      keys << :privatePort
+      keys << :publicPort
       keys << :webPort
       keys << :metricsPort
       keys << :metricsPath
@@ -39,7 +48,9 @@ class AppConfig < OpenStruct
       keys << :database
       keys << :objectStore
       keys << :inMemoryDb
+      keys << :featureFlags
       keys << :endpoints
+      keys << :privateEndpoints
     end
   end
 end
@@ -244,6 +255,27 @@ class ObjectStoreConfig < OpenStruct
   end
 end
 
+class FeatureFlagsConfig < OpenStruct
+
+  def initialize(attributes)
+    super
+    raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
+
+    attributes = attributes.each_with_object({}) do |(k, v), h|
+      raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+      h[k.to_sym] = v
+    end
+
+  end
+
+  def valid_keys
+    [].tap do |keys|
+      keys << :hostname
+      keys << :port
+    end
+  end
+end
+
 class InMemoryDBConfig < OpenStruct
 
   def initialize(attributes)
@@ -268,6 +300,29 @@ class InMemoryDBConfig < OpenStruct
 end
 
 class DependencyEndpoint < OpenStruct
+
+  def initialize(attributes)
+    super
+    raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
+
+    attributes = attributes.each_with_object({}) do |(k, v), h|
+      raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+      h[k.to_sym] = v
+    end
+
+  end
+
+  def valid_keys
+    [].tap do |keys|
+      keys << :name
+      keys << :hostname
+      keys << :port
+      keys << :app
+    end
+  end
+end
+
+class PrivateDependencyEndpoint < OpenStruct
 
   def initialize(attributes)
     super
