@@ -2,7 +2,7 @@ require 'ostruct'
 require 'json'
 require_relative 'types'
 
-arg_config = ENV.fetch('ACG_CONFIG')
+arg_config = ENV['ACG_CONFIG'] || 'test.json'
 
 unless File.exist?(arg_config)
   puts "ERROR: #{arg_config} does not exist"
