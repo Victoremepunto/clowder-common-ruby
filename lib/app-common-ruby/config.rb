@@ -2,43 +2,73 @@ require 'ostruct'
 require 'json'
 require_relative 'types'
 
-arg_config = ENV['ACG_CONFIG'] || 'test.json'
+module AppCommonRuby
+  class Config < AppConfig
+    def self.load(acg_config = ENV['ACG_CONFIG'] || 'test.json')
+      unless File.exist?(acg_config)
+        raise "ERROR: #{acg_config} does not exist"
+      end
 
-unless File.exist?(arg_config)
-  puts "ERROR: #{arg_config} does not exist"
-  exit 1
-end
+      new(acg_config)
+    end
 
-LoadedConfig = AppConfig.new(JSON.parse(File.read(arg_config)))
+    def initialize(acg_config)
+      super(JSON.parse(File.read(acg_config)))
+      kafka_servers
+      kafka_topics
+      object_buckets
+      dependency_endpoints
+      private_dependency_endpoints
+    end
 
-KafkaTopics = {}.tap do |topics|
-  LoadedConfig.kafka.topics.each do |topic|
-    topics[topic.requestedName] = topic
-  end
-end
+    def kafka_servers
+      @kafka_servers ||= [].tap do |servers|
+        kafka.brokers.each do |broker|
+          servers << "{#{broker.hostname}}:{#{broker.port}}"
+        end
+      end
+    end
 
-ObjectBuckets = {}.tap do |buckets|
-  LoadedConfig.objectStore.buckets.each do |bucket|
-    buckets[bucket.requestedName] = bucket
-  end
-end
+    def kafka_topics
+      @kafka_topics ||= {}.tap do |topics|
+        kafka.topics.each do |topic|
+          next if topic.requestedName.nil?
 
-DependencyEndpoints = {}.tap do |endpoints|
-  LoadedConfig.endpoints.each do |endpoint|
-    endpoints[endpoint.app] = {} unless endpoints.include?(endpoint.app)
-    endpoints[endpoint.app][endpoint.name] = endpoint
-  end
-end
+          topics[topic.requestedName] = topic
+        end
+      end
+    end
 
-PrivateDependencyEndpoints = {}.tap do |privateEndpoints|
-  LoadedConfig.privateEndpoints.each do |endpoint|
-    privateEndpoints[endpoint.app] = {} unless privateEndpoints.include?(endpoint.app)
-    privateEndpoints[endpoint.app][endpoint.name] = endpoint
-  end
-end
+    def object_buckets
+      @object_buckets ||= {}.tap do |buckets|
+        objectStore.buckets.each do |bucket|
+          next if bucket.requestedName.nil?
 
-KafkaServers = [].tap do |servers|
-  LoadedConfig.kafka.brokers.each do |broker|
-    servers << "{#{broker.hostname}}:{#{broker.port}}"
+          buckets[bucket.requestedName] = bucket
+        end
+      end
+    end
+
+    def dependency_endpoints
+      @dependency_endpoints ||= {}.tap do |endpts|
+        endpoints.each do |endpoint|
+          next if endpoint.app.nil? || endpoint.name.nil?
+
+          endpts[endpoint.app]                = {} unless endpts.include?(endpoint.app)
+          endpts[endpoint.app][endpoint.name] = endpoint
+        end
+      end
+    end
+
+    def private_dependency_endpoints
+      @private_dependency_endpoints ||= {}.tap do |priv_endpts|
+        privateEndpoints.each do |endpoint|
+          next if endpoint.app.nil? || endpoint.name.nil?
+
+          priv_endpts[endpoint.app]                = {} unless priv_endpts.include?(endpoint.app)
+          priv_endpts[endpoint.app][endpoint.name] = endpoint
+        end
+      end
+    end
   end
 end
