@@ -21,6 +21,13 @@ module AppCommonRuby
       private_dependency_endpoints
     end
 
+    # Check if clowder config's ENV var is defined
+    # If true, svc is deployed by Clowder
+    def clowder_enabled?
+      !ENV['ACG_CONFIG'].nil? && ENV['ACG_CONFIG'] != ""
+    end
+
+    # List of Kafka Broker URLs.
     def kafka_servers
       @kafka_servers ||= [].tap do |servers|
         kafka.brokers.each do |broker|
@@ -29,6 +36,7 @@ module AppCommonRuby
       end
     end
 
+    # Map of KafkaTopics using the requestedName as the key and the topic object as the value.
     def kafka_topics
       @kafka_topics ||= {}.tap do |topics|
         kafka.topics.each do |topic|
@@ -39,6 +47,7 @@ module AppCommonRuby
       end
     end
 
+    # List of ObjectBuckets using the requestedName
     def object_buckets
       @object_buckets ||= {}.tap do |buckets|
         objectStore.buckets.each do |bucket|
@@ -49,6 +58,8 @@ module AppCommonRuby
       end
     end
 
+    # Nested map using [appName][deploymentName]
+    # for the public services of requested applications.
     def dependency_endpoints
       @dependency_endpoints ||= {}.tap do |endpts|
         endpoints.each do |endpoint|
@@ -60,6 +71,8 @@ module AppCommonRuby
       end
     end
 
+    # nested map using [appName][deploymentName]
+    #   for the private services of requested applications.
     def private_dependency_endpoints
       @private_dependency_endpoints ||= {}.tap do |priv_endpts|
         privateEndpoints.each do |endpoint|
