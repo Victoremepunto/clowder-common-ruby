@@ -21,13 +21,13 @@ module AppCommonRuby
         h[k.to_sym] = v
       end
 
-      @logging      = LoggingConfig.new(attributes.fetch(:logging, {}))
-      @kafka        = KafkaConfig.new(attributes.fetch(:kafka, {}))
-      @database     = DatabaseConfig.new(attributes.fetch(:database, {}))
-      @objectStore  = ObjectStoreConfig.new(attributes.fetch(:objectStore, {}))
-      @inMemoryDb   = InMemoryDBConfig.new(attributes.fetch(:inMemoryDb, {}))
+      @logging = LoggingConfig.new(attributes.fetch(:logging, {}))
+      @kafka = KafkaConfig.new(attributes.fetch(:kafka, {}))
+      @database = DatabaseConfig.new(attributes.fetch(:database, {}))
+      @objectStore = ObjectStoreConfig.new(attributes.fetch(:objectStore, {}))
+      @inMemoryDb = InMemoryDBConfig.new(attributes.fetch(:inMemoryDb, {}))
       @featureFlags = FeatureFlagsConfig.new(attributes.fetch(:featureFlags, {}))
-      @endpoints    = []
+      @endpoints = []
       attributes.fetch(:endpoints, []).each do |attr|
         @endpoints << DependencyEndpoint.new(attr)
       end
