@@ -4,6 +4,12 @@ require_relative 'types'
 
 module AppCommonRuby
   class Config < AppConfig
+    # Check if clowder config's ENV var is defined
+    # If true, svc is deployed by Clowder
+    def self.clowder_enabled?
+      !ENV['ACG_CONFIG'].nil? && ENV['ACG_CONFIG'] != ""
+    end
+
     def self.load(acg_config = ENV['ACG_CONFIG'] || 'test.json')
       unless File.exist?(acg_config)
         raise "ERROR: #{acg_config} does not exist"
@@ -19,12 +25,6 @@ module AppCommonRuby
       object_buckets
       dependency_endpoints
       private_dependency_endpoints
-    end
-
-    # Check if clowder config's ENV var is defined
-    # If true, svc is deployed by Clowder
-    def clowder_enabled?
-      !ENV['ACG_CONFIG'].nil? && ENV['ACG_CONFIG'] != ""
     end
 
     # List of Kafka Broker URLs.

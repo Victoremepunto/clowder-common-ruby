@@ -18,9 +18,9 @@ require 'app-common-ruby'
 
 @config ||= {}.tap do |options|
     # uses ENV['ACG_CONFIG'] or you can provide the path as a method param
-    config = AppCommonRuby::Config.load 
     
-  if config.clowder_enabled?     
+  if AppCommonRuby::Config.clowder_enabled?     
+    config = AppCommonRuby::Config.load 
     options["webPorts"]         = config.webPort
     options["databaseHostname"] = config.database.hostname
     options["kafkaTopics"]      = config.kafka_topics
