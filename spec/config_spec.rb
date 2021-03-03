@@ -1,7 +1,7 @@
-require 'app-common-ruby'
+require 'clowder-common-ruby'
 require 'climate_control'
 
-describe AppCommonRuby::Config do
+describe ClowderCommonRuby::Config do
   around do |example|
     ClimateControl.modify(:ACG_CONFIG => "./test.json") { example.call }
   end
@@ -11,7 +11,7 @@ describe AppCommonRuby::Config do
   it "should have KafkaTopics" do
     topic_config = subject.kafka_topics["originalName"]
 
-    expect(topic_config.class).to eq(AppCommonRuby::TopicConfig)
+    expect(topic_config.class).to eq(ClowderCommonRuby::TopicConfig)
     expect(topic_config.requestedName).to eq("originalName")
     expect(topic_config.name).to eq("someTopic")
     expect(topic_config.consumerGroup).to eq("someGroupName")
@@ -20,7 +20,7 @@ describe AppCommonRuby::Config do
   it "should have ObjectBuckets" do
     bucket = subject.object_buckets["reqname"]
 
-    expect(bucket.class).to eq(AppCommonRuby::ObjectStoreBucket)
+    expect(bucket.class).to eq(ClowderCommonRuby::ObjectStoreBucket)
     expect(bucket.requestedName).to eq("reqname")
     expect(bucket.accessKey).to eq("accessKey1")
     expect(bucket.secretKey).to eq("secretKey1")
@@ -29,8 +29,8 @@ describe AppCommonRuby::Config do
 
   it "should have DependencyEndpoints" do
     expect(subject.dependency_endpoints.count).to eq(2)
-    expect(subject.dependency_endpoints["app1"]["endpoint1"].class).to eq(AppCommonRuby::DependencyEndpoint)
-    expect(subject.dependency_endpoints["app2"]["endpoint2"].class).to eq(AppCommonRuby::DependencyEndpoint)
+    expect(subject.dependency_endpoints["app1"]["endpoint1"].class).to eq(ClowderCommonRuby::DependencyEndpoint)
+    expect(subject.dependency_endpoints["app2"]["endpoint2"].class).to eq(ClowderCommonRuby::DependencyEndpoint)
 
     expect(subject.dependency_endpoints["app1"]["endpoint1"].hostname).to eq("endpoint1.svc")
     expect(subject.dependency_endpoints["app1"]["endpoint1"].port).to eq(8000)
@@ -41,8 +41,8 @@ describe AppCommonRuby::Config do
 
   it "should have PrivateDependencyEndpoints" do
     expect(subject.private_dependency_endpoints.count).to eq(2)
-    expect(subject.private_dependency_endpoints["app1"]["endpoint1"].class).to eq(AppCommonRuby::PrivateDependencyEndpoint)
-    expect(subject.private_dependency_endpoints["app2"]["endpoint2"].class).to eq(AppCommonRuby::PrivateDependencyEndpoint)
+    expect(subject.private_dependency_endpoints["app1"]["endpoint1"].class).to eq(ClowderCommonRuby::PrivateDependencyEndpoint)
+    expect(subject.private_dependency_endpoints["app2"]["endpoint2"].class).to eq(ClowderCommonRuby::PrivateDependencyEndpoint)
 
     expect(subject.private_dependency_endpoints["app1"]["endpoint1"].hostname).to eq("endpoint1.svc")
     expect(subject.private_dependency_endpoints["app1"]["endpoint1"].port).to eq(10000)

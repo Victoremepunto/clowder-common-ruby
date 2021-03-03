@@ -1,4 +1,4 @@
-app-common-ruby
+clowder-common-ruby
 =================
 
 Simple client access library for the config for the Clowder operator.
@@ -14,13 +14,13 @@ database credentials etc.
 Usage:
 
 ```
-require 'app-common-ruby'
+require 'clowder-common-ruby'
 
 @config ||= {}.tap do |options|
     # uses ENV['ACG_CONFIG'] or you can provide the path as a method param
     
-  if AppCommonRuby::Config.clowder_enabled?     
-    config = AppCommonRuby::Config.load 
+  if ClowderCommonRuby::Config.clowder_enabled?     
+    config = ClowderCommonRuby::Config.load 
     options["webPorts"]         = config.webPort
     options["databaseHostname"] = config.database.hostname
     options["kafkaTopics"]      = config.kafka_topics
@@ -58,6 +58,6 @@ the `name` is equal to the `requested_name`.
 Testing
 -------
 
-export `ACG_CONFIG="test.json"; ruby lib/app-common-ruby/test.rb
+export `ACG_CONFIG="test.json"; ruby lib/clowder-common-ruby/test.rb
 
 It inspects and prints the config file with loaded values or shows an error it the env. variable not configured correctly  
