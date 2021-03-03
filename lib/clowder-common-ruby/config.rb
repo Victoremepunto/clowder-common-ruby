@@ -2,7 +2,7 @@ require 'ostruct'
 require 'json'
 require_relative 'types'
 
-module AppCommonRuby
+module ClowderCommonRuby
   class Config < AppConfig
     # Check if clowder config's ENV var is defined
     # If true, svc is deployed by Clowder

@@ -1,7 +1,7 @@
 require_relative 'config'
 
 begin
-  config = ::AppCommonRuby::Config.load
+  config = ::ClowderCommonRuby::Config.load
 
   puts config.inspect
   puts "-------------------\nConfig #{ENV['ACG_CONFIG']} loaded successfully"
