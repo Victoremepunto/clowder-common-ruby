@@ -199,6 +199,7 @@ module ClowderCommonRuby
         keys << :adminUsername
         keys << :adminPassword
         keys << :rdsCa
+        keys << :sslMode
       end
     end
   end
