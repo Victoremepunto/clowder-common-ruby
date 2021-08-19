@@ -17,7 +17,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -64,7 +64,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -86,7 +86,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -111,7 +111,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -140,7 +140,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -161,7 +161,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -183,7 +183,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -199,7 +199,6 @@ module ClowderCommonRuby
         keys << :adminUsername
         keys << :adminPassword
         keys << :rdsCa
-        keys << :sslMode
       end
     end
   end
@@ -211,7 +210,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -235,7 +234,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -264,7 +263,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -285,7 +284,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -308,7 +307,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
@@ -331,7 +330,7 @@ module ClowderCommonRuby
       raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))
 
       attributes = attributes.each_with_object({}) do |(k, v), h|
-        raise "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
+        warn "The input [#{k}] is invalid" unless valid_keys.include?(k.to_sym)
         h[k.to_sym] = v
       end
 
