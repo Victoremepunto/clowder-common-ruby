@@ -76,7 +76,7 @@ class RubyClassConverter
     init_function << "      raise 'The input argument (attributes) must be a hash' if (!attributes || !attributes.is_a?(Hash))\n"
     init_function << "\n"
     init_function << "      attributes = attributes.each_with_object({}) do |(k, v), h|\n"
-    init_function << "        raise \"The input [\#{k}] is invalid\" unless valid_keys.include?(k.to_sym)\n"
+    init_function << "        warn \"The input [\#{k}] is invalid\" unless valid_keys.include?(k.to_sym)\n"
     init_function << "        h[k.to_sym] = v\n"
     init_function << "      end\n"
     init_function << "\n"
