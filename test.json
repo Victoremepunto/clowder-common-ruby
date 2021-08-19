@@ -1,4 +1,12 @@
 {
+    "metadata": {
+      "deployments": [
+        {
+          "name": "svc",
+          "image": "quay.io/not_us/test_ruby_app:1337"
+        }
+      ]
+    },
     "webPort": 8000,
     "metricsPort": 9000,
     "metricsPath": "/metrics",
