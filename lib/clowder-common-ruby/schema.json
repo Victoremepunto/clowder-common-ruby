@@ -215,6 +215,10 @@
                 "rdsCa": {
                     "description": "Defines the CA used to access the database.",
                     "type": "string"
+                },
+                "sslMode": {
+                    "description": "Defines the SSL configuration mode.",
+                    "type": "string"
                 }
             },
             "required": [
